@@ -3,9 +3,6 @@ import Styles from "./index.css";
 export default function SideBar() {
   return (
     <div className="sidebar">
-      <div className="sidebar-header">
-        <h3>Lightency</h3>
-      </div>
       <div className="sidebar-body">
         <ul>
           <li>

@@ -8,5 +8,14 @@
     z-index: 100;
     overflow-x: hidden;
     padding: 60px;
+    
 
+}
+
+.sidebar ul li{
+    list-style: none;
+    padding: 10px;
+    padding-top: 50px;
+
+    
 }
