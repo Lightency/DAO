@@ -1,0 +1,36 @@
+.sidebar {
+  background-color: #081322;
+  height: 100vh;
+  width: 300px;
+  position: sticky;
+  top: 0px;
+  display: flex;
+  flex-direction: column;
+}
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+  margin-top: 150px;
+ 
+}
+.sidebar .navigation a {
+  padding: 30px;
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 20px;
+  padding-top: 20px;
+  
+}
+
+
+.navigation a:hover {
+  background-color: #081322;
+  color: yellow;
+}
+.sidebar .navigation a.active {
+  background: rgba(255, 255, 255, 0.2);
+}

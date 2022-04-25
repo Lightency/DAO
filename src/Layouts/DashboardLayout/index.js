@@ -1,14 +1,22 @@
 import * as React from "react";
 import Wallet from "../../Components/WalletConnect/wallet";
-import "./index.css";
-export default function DashboardLayout() {
+import { initContract } from "../../utils";
+import SideBar from "../dashboardRouter";
+import styled from "styled-components";
+import Navbar from "./Navbar";
+import { Children } from "react/cjs/react.production.min";
+
+const Content = styled.div`
+  padding: 20px;
+`;
+
+export default function DashboardLayout(props) {
   return (
     <>
-      <div className="topBar">
-        <div className="logo">
-          <h3>Lightency</h3>
-        </div>
-        <Wallet />
+      <div>
+        <Navbar />
+        <SideBar />
+        <Content>{props.children}</Content>
       </div>
     </>
   );

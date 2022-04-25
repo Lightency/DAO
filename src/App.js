@@ -5,14 +5,23 @@ import "./global.css";
 
 import Wallet from "./Components/WalletConnect/wallet";
 import DashboardLayout from "./Layouts/DashboardLayout";
-import SideBar from "./Layouts/dashboardRouter/sidebar";
+import SideBar from "./Layouts/dashboardRouter";
+import { Routes, Route } from 'react-router-dom'
+
 
 export default function App() {
   return (
     <>
-      {/* <Wallet /> */}
-      <DashboardLayout />
-      <SideBar />
+      <Routes>
+     
+        <Route path="/" element={<DashboardLayout />} />
+       
+      </Routes>
     </>
   );
 }
+
+
+  // {/* <Wallet /> */}
+  // <DashboardLayout />
+  // <SideBar />
