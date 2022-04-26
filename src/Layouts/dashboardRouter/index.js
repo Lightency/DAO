@@ -1,28 +1,9 @@
 import * as React from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 import styled from "styled-components";
 import Sidebar from "./SideBar";
 
-const Overlay = styled.div`
-  display: none;
-  z-index: 9;
-  background: linear-gradient(
-    45deg,
-    rgba(0, 0, 0, 0.5) 0%,
-    rgba(0, 0, 0, 0.5) 100%
-  );
-  &.open {
-    @media screen and (min-width: 700px) {
-      display: none;
-    }
-    display: block;
-    height: 100vh;
-    width: 100vw;
-    position: fixed;
-    overflow: hidden;
-  }
-`;
 const MainLayout = styled.div`
   display: flex;
   background-color: #f3f3f3;
@@ -41,7 +22,7 @@ function DashboardRouter() {
       <Sidebar />
       <DashboardContainer>
         <Outlet />
-      </DashboardContainer> 
+      </DashboardContainer>
     </MainLayout>
   );
 }

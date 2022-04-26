@@ -4,8 +4,7 @@
   width: 300px;
   position: sticky;
   top: 0px;
-  display: flex;
-  flex-direction: column;
+  
 }
 
 .navigation {
@@ -14,7 +13,7 @@
   margin-top: 150px;
  
 }
-.sidebar .navigation a {
+ .navigation a {
   padding: 30px;
   color: white;
   text-decoration: none;
@@ -30,7 +29,4 @@
 .navigation a:hover {
   background-color: #081322;
   color: yellow;
-}
-.sidebar .navigation a.active {
-  background: rgba(255, 255, 255, 0.2);
 }

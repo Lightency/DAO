@@ -15,19 +15,19 @@ function Navigation() {
     <nav className="navigation">
       <ul>
         <li>
-          <NavLink to="/dashboard" activeClassName="active">
+          <NavLink to="/dashboard">
             <FontAwesomeIcon icon={faGauge} />
             <span>Dashboard</span>
           </NavLink>
         </li>
         <li>
-          <NavLink to="/wallet" activeClassName="active">
+          <NavLink to="/wallet">
             <FontAwesomeIcon icon={faWallet} />
             <span>Wallet</span>
           </NavLink>
         </li>
         <li>
-          <NavLink to="/governance" activeClassName="active">
+          <NavLink to="/governance">
             <FontAwesomeIcon icon={faMoneyBill} />
             <span>Governance</span>
           </NavLink>

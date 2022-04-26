@@ -1,23 +1,22 @@
 import * as React from "react";
-import Wallet from "../../Components/WalletConnect/wallet";
-import { initContract } from "../../utils";
+
 import SideBar from "../dashboardRouter";
 import styled from "styled-components";
 import Navbar from "./Navbar";
-import { Children } from "react/cjs/react.production.min";
+import Navigation from "../dashboardRouter/SideBar";
 
 const Content = styled.div`
-  padding: 20px;
+  padding: 0px;
+  width: 100%;
+  height: 100%;
 `;
 
-export default function DashboardLayout(props) {
+export default function DashboardLayout({ children }) {
   return (
-    <>
-      <div>
-        <Navbar />
-        <SideBar />
-        <Content>{props.children}</Content>
-      </div>
-    </>
+    <div>
+      <Navbar />
+      <SideBar />
+      <Content>{children}</Content>
+    </div>
   );
 }
