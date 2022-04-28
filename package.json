@@ -29,13 +29,26 @@
     "nodemon": "~2.0.3",
     "parcel-bundler": "~1.12.4",
     "react-test-renderer": "~17.0.1",
+    "sass": "^1.50.1",
     "shelljs": "~0.8.4"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "~1 || ~6",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/react-fontawesome": "^0.1.18",
+    "@near-wallet-selector/core": "^3.0.2",
+    "@near-wallet-selector/near-wallet": "^3.0.2",
+    "@near-wallet-selector/sender": "^3.0.2",
+    "classnames": "^2.3.1",
+    "font-awesome": "^4.7.0",
     "near-api-js": "~0.43.1",
-    "react": "~17.0.1",
+    "react": ">=16.x",
     "react-dom": "~17.0.1",
-    "regenerator-runtime": "~0.13.5"
+    "react-router": "^6.3.0",
+    "react-router-dom": "^6.3.0",
+    "regenerator-runtime": "~0.13.5",
+    "store": "^2.0.12",
+    "styled-components": "^5.3.5"
   },
   "resolutions": {
     "@babel/preset-env": "7.13.8"
