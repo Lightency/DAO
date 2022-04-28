@@ -12,7 +12,8 @@
  *
  */
 
-import { Context, logging, storage } from 'near-sdk-as'
+import { Context, logging, storage, u128 } from 'near-sdk-as'
+import {Proposal, proposals} from './model';
 
 const DEFAULT_MESSAGE = 'Hello'
 
@@ -31,4 +32,23 @@ export function setGreeting(message: string): void {
   // Use logging.log to record logs permanently to the blockchain!
   logging.log(`Saving greeting "${message}" for account "${accountId}"`)
   storage.set(accountId, message)
+}
+
+
+
+
+export function addProposal(title: string, description: string, url: string): void {
+  // Creating a new entry and populating fields with our data
+  const entry = new Proposal(title, description, url, proposals.length, u128.fromU64(0));
+  // Adding the entry to end of the the persistent collection
+  proposals.push(entry);
+}
+
+
+export function getProposals(): Proposal[] {
+  const result = new Array<Proposal>(proposals.length);
+  for (let i = 0; i < proposals.length; i++) {
+    result[i] = proposals[i];
+  }
+  return result;
 }
