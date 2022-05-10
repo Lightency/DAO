@@ -6,7 +6,7 @@ import "./global.css";
 import Wallet from "./Components/WalletConnect/wallet";
 import DashboardLayout from "./Layouts/DashboardLayout";
 import SideBar from "./Layouts/dashboardRouter";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route , BrowserRouter} from "react-router-dom";
 import WalletDetails from "./views/Wallet";
 import Governance from "./views/Governance";
 import Dashboard from "./views/Dashboard";
@@ -14,7 +14,8 @@ import Dashboard from "./views/Dashboard";
 export default function App() {
   return (
     <>
-      <Routes>
+      <BrowserRouter>
+      <Routes basename="/app">
         <Route path="/" element={<DashboardLayout />}>
           <Route path="wallet">
             <Route index element={<WalletDetails />}></Route>
@@ -29,6 +30,7 @@ export default function App() {
           </Route>
         </Route>
       </Routes>
+      </BrowserRouter>
     </>
   );
 }
