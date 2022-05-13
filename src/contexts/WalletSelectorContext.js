@@ -37,7 +37,7 @@ export const WalletSelectorContextProvider = ({ children }) => {
   useEffect(() => {
     NearWalletSelector.init({
       network: "testnet",
-      contractId: "guestbook.0xchai.testnet",
+      contractId: "",
       wallets: [
         setupNearWallet({
           iconUrl: nearWalletIconUrl,
