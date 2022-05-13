@@ -14,7 +14,6 @@ import { useWalletSelector } from "../../contexts/WalletSelectorContext";
 export default function Wallet() {
   const { selector, accountId } = useWalletSelector();
   const [account, setAccount] = useState(null);
-  const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const getAccount = useCallback(async () => {

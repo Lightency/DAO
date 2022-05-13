@@ -37,7 +37,7 @@ export const WalletSelectorContextProvider = ({ children }) => {
   useEffect(() => {
     NearWalletSelector.init({
       network: "testnet",
-      contractId: "",
+      contractId: "dev-1652202239033-35365074758973",
       wallets: [
         setupNearWallet({
           iconUrl: nearWalletIconUrl,
@@ -51,8 +51,6 @@ export const WalletSelectorContextProvider = ({ children }) => {
         return instance.getAccounts().then(async (newAccounts) => {
           syncAccountState(localStorage.getItem("accountId"), newAccounts);
 
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore-next-line
           window.selector = instance;
           setSelector(instance);
         });

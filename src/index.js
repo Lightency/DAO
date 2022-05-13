@@ -9,7 +9,9 @@ window.nearInitPromise = initContract()
   .then(() => {
     ReactDOM.render(
       <BrowserRouter>
-        <App />
+        <WalletSelectorContextProvider>
+          <App />
+        </WalletSelectorContextProvider>
       </BrowserRouter>,
       document.querySelector("#root")
     );

@@ -43,10 +43,17 @@ function Governance() {
         {governance &&
           governance.map((governance) => (
             <div key={governance.id} className="govCard">
+              <span>{governance.id}</span>
               <h2> Description : {governance.description.split("$")[0]}</h2>
               <h2> Kind : {governance.kind.type}</h2>
-
               <h2> Status : {governance.status}</h2>
+              <button>
+                <a
+                  href={`https://testnet.app.astrodao.com/dao/lightency-test.sputnikv2.testnet/proposals/${governance.id}`}
+                >
+                  <span>View</span>
+                </a>
+              </button>
             </div>
           ))}
 

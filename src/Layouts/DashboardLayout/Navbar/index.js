@@ -8,7 +8,7 @@ const NavbarContainer = styled.nav`
   align-items: center;
   justify-content: space-between;
   box-shadow: 0px 0px 4px 4px rgba(8, 19, 34, 0.2);
-  background-color: #081322;
+background-color: #081322;
   img {
     width: 80px;
     height: auto;
@@ -39,7 +39,7 @@ function Navbar() {
         />
         <label>{window.accountId}</label>
       </div>
-      {/* <Wallet /> */}
+      <Wallet />
     </NavbarContainer>
   );
 }
