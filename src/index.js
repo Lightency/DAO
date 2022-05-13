@@ -8,11 +8,9 @@ import { WalletSelectorContextProvider } from "./contexts/WalletSelectorContext"
 window.nearInitPromise = initContract()
   .then(() => {
     ReactDOM.render(
-      <WalletSelectorContextProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </WalletSelectorContextProvider>,
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>,
       document.querySelector("#root")
     );
   })
