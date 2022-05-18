@@ -44,12 +44,14 @@ import PropTypes from "prop-types";
 import "materialize-css/dist/css/materialize.css";
 import { providers, utils } from "near-api-js";
 import { Button } from "react-materialize";
-
-const SUGGESTED_DONATION = "0";
-const BOATLOAD_OF_GAS = utils.format.parseNearAmount("0.00000000003");
+import { BrowserRouter } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import WalletDetails from "./views/Wallet";
+import Governance from "./views/Governance";
+import Dashboard from "./views/Dashboard";
+import DashboardLayout from "./Layouts/DashboardLayout";
 
 const App = ({ nearConfig }) => {
-  const [messages, setMessages] = useState([]);
   const [selector, setSelector] = useState(null);
   const [accountId, setAccountId] = useState(null);
   const [accounts, setAccounts] = useState([]);
@@ -105,68 +107,6 @@ const App = ({ nearConfig }) => {
     return () => subscription.remove();
   }, [selector, accountId]);
 
-  const getMessages = useCallback(() => {
-    const provider = new providers.JsonRpcProvider({
-      url: selector.network.nodeUrl,
-    });
-
-    return provider
-      .query({
-        request_type: "call_function",
-        account_id: selector.getContractId(),
-        method_name: "getMessages",
-        args_base64: "",
-        finality: "optimistic",
-      })
-      .then((res) => JSON.parse(Buffer.from(res.result).toString()));
-  }, [selector]);
-
-  useEffect(() => {
-    if (!selector) {
-      return;
-    }
-    getMessages().then(setMessages);
-  }, [selector]);
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-
-    const { fieldset, message, donation } = e.target.elements;
-
-    fieldset.disabled = true;
-
-    selector
-      .signAndSendTransaction({
-        signerId: accountId,
-        actions: [
-          {
-            type: "FunctionCall",
-            params: {
-              methodName: "addMessage",
-              args: { text: message.value },
-              gas: BOATLOAD_OF_GAS,
-              deposit: utils.format.parseNearAmount(donation.value || "0"),
-            },
-          },
-        ],
-      })
-      .catch((err) => {
-        alert("Failed to add message");
-        console.log("Failed to add message");
-        fieldset.disabled = false;
-        throw err;
-      })
-      .then(() => {
-        getMessages().then((messages) => {
-          setMessages(messages);
-          message.value = "";
-          donation.value = SUGGESTED_DONATION;
-          fieldset.disabled = false;
-          message.focus();
-        });
-      });
-  };
-
   const handleSignIn = () => {
     selector.show();
   };
@@ -192,37 +132,62 @@ const App = ({ nearConfig }) => {
     alert("Switched account to " + nextAccountId);
   };
 
+  // if wallet connected and account selected return routes for dashboard else return routes for login
+  const routes = accountId ? (
+    <Routes>
+      <Route path="/" element={<DashboardLayout/>}>
+        <Route path="wallet">
+          <Route index element={<WalletDetails />}></Route>
+        </Route>
+
+        <Route path="governance">
+          <Route index element={<Governance />}></Route>
+        </Route>
+
+        <Route path="dashboard">
+          <Route index element={<Dashboard />}></Route>
+        </Route>
+      </Route>
+    </Routes>
+  ) : (
+    <>
+      <h1>login</h1>
+    </>
+  );
+
   return (
-    <main id="page-wrapper">
-      <header>
-        <h1>NEAR Guest Book</h1>
-        {accountId && accounts.length ? (
-          <div className="row">
-            <div className="col s2">
-              <Button onClick={handleSignOut}>Log out</Button>
+    <BrowserRouter>
+      <div className="App">
+        <header className="App-header">
+          <h1>Near Wallet Selector</h1>
+          {accountId && (
+            <div>
+              <Button
+                className="btn-small"
+                onClick={handleSwitchAccount}
+                disabled={accounts.length === 1}
+              >
+                Switch Account
+              </Button>
+              <Button className="btn-small" onClick={handleSignOut}>
+                Sign Out
+              </Button>
             </div>
-            <div className="col s4">
-              <Button onClick={handleSwitchProvider}>Switch Provider</Button>
+          )}
+          {!accountId && (
+            <div>
+              <Button className="btn-small" onClick={handleSignIn}>
+                Sign In
+              </Button>
+              <Button className="btn-small" onClick={handleSwitchProvider}>
+                Switch Provider
+              </Button>
             </div>
-            {accounts.length > 1 && (
-              <div className="col s4">
-                <Button onClick={handleSwitchAccount}>Switch Account</Button>
-              </div>
-            )}
-          </div>
-        ) : (
-          <Button onClick={handleSignIn}>Log in</Button>
-        )}
-      </header>
-      {accountId && accounts.length ? (
-        <h1>{accountId}</h1>
-      ) : (
-        <p> sign in please </p>
-      )}
-      {accountId && accounts.length && messages.length && (
-        <Messages messages={messages} />
-      )}
-    </main>
+          )}
+        </header>
+        {routes}
+      </div>
+    </BrowserRouter>
   );
 };
 
