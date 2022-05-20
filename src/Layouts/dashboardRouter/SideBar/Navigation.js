@@ -6,7 +6,7 @@ import {
   faGauge,
   faMoneyBill,
   faWallet,
-  faBallot,
+  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import "./sidebar.module.css";
 
@@ -35,7 +35,7 @@ function Navigation() {
 
         <li>
           <NavLink to="/community-governance">
-            <FontAwesomeIcon icon={faMoneyBill} />
+            <FontAwesomeIcon icon={faUsers} />
             <span>Community</span>
           </NavLink>
         </li>
