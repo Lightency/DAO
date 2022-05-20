@@ -32,6 +32,13 @@ function Navigation() {
             <span>Governance</span>
           </NavLink>
         </li>
+
+        <li>
+          <NavLink to="/community-governance">
+            <FontAwesomeIcon icon={faMoneyBill} />
+            <span>Community</span>
+          </NavLink>
+        </li>
       </ul>
     </nav>
   );

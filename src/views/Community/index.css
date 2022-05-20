@@ -1,0 +1,8 @@
+.cards__items {
+    padding: 5px;
+    display:flex;
+    justify-content: space-between;
+    flex-wrap:nowrap;
+      
+  }
+  

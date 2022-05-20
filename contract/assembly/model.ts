@@ -10,9 +10,9 @@ import {context, u128, PersistentVector} from "near-sdk-as";
  export class Proposal {
    sender: string;
  
-   constructor(public title: string, public description: string, public url: string, public id: i32, public votes: u128) {
-     this.sender = context.sender;
-   }
+   constructor(public title: string, public description: string, public url: string, public id: i32, public votes_yes: i32, public votes_no:i32) {
+    this.sender = context.sender;
+  }
  }
  
  /**
