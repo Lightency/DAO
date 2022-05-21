@@ -52,6 +52,9 @@ function GovernanceCommunity() {
             title: proposal.title,
             description: proposal.description,
             id: proposal.id,
+            url: proposal.url,
+            votes_yes: proposal.votes_yes,
+            votes_no: proposal.votes_no,
           },
         ]);
       });
@@ -77,6 +80,7 @@ function GovernanceCommunity() {
 
       <Box display="grid" flexWrap="wrap" justifyContent="center">
         {proposals.map((proposal) => {
+          console.log(proposal);
           return (
             <div className="cards_items" key={proposal.id}>
               <MultiActionAreaCard

@@ -10,12 +10,6 @@ export default function MultiActionAreaCard(prop) {
   return (
     <div>
       <Card sx={{ maxWidth: 1000 }}>
-        <CardMedia
-          component="img"
-          height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
-          alt="insert image here !:)"
-        />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {prop.title}
@@ -23,13 +17,13 @@ export default function MultiActionAreaCard(prop) {
           <Typography variant="body2" color="text.secondary">
             {prop.description}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="h5" color="text.secondary">
             {prop.url}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="h6" color="text.secondary">
             Yes = {prop.votes_yes}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="h6" color="text.secondary">
             No = {prop.votes_no}
           </Typography>
         </CardContent>
