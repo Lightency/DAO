@@ -61,6 +61,7 @@ function GovernanceCommunity() {
     });
   }, []);
 
+  
   return (
     <div>
       <h1>Governance</h1>
