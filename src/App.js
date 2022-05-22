@@ -9,12 +9,13 @@ import WalletDetails from "./views/Wallet";
 import Governance from "./views/Governance";
 import Dashboard from "./views/Dashboard";
 import GovernanceCommunity from "./views/Community";
+import CardDetails from "./views/Community/CardDetails";
 
 export default function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<DashboardLayout />}>
+        <Route exact path="/" element={<DashboardLayout />}>
           <Route path="wallet">
             <Route index element={<WalletDetails />}></Route>
           </Route>
@@ -28,6 +29,10 @@ export default function App() {
           </Route>
           <Route path="community-governance">
             <Route index element={<GovernanceCommunity />}></Route>
+          
+          <Route path="community-governance/:CardId">
+            <Route index element={<CardDetails />}></Route>
+          </Route>
           </Route>
         </Route>
       </Routes>

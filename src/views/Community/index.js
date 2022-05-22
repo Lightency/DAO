@@ -52,6 +52,8 @@ function GovernanceCommunity() {
             title: proposal.title,
             description: proposal.description,
             id: proposal.id,
+            votes_yes: proposal.votes_yes,
+            votes_no: proposal.votes_no,
           },
         ]);
       });

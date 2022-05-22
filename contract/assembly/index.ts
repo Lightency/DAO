@@ -114,7 +114,9 @@ const title=proposals[proposalID].title;
 const description=proposals[proposalID].description;
 const url=proposals[proposalID].url;
 const id=proposals[proposalID].id;
-proposals[proposalID]=new Proposal(title,description,url,id,<i32>get_num_yes(proposalID),<i32>get_num_no(proposalID));
+const histYes=historyYes(id);
+const histNo=historyNo(id);
+proposals[proposalID]=new Proposal(title,description,url,id,<i32>get_num_yes(proposalID),<i32>get_num_no(proposalID),histYes,histNo);
 return num_votes;
 }
 
@@ -144,7 +146,7 @@ export function setGreeting(message: string): void {
 
 export function addProposal(title: string, description: string, url: string): void {
   // Creating a new entry and populating fields with our data
-  const entry = new Proposal(title, description, url, proposals.length, 0,0);
+  const entry = new Proposal(title, description, url, proposals.length, 0,0,'','');
   // Adding the entry to end of the the persistent collection
   proposals.push(entry);
   const dataMapYes=new PersistentMap<string,u64>("datamapYes"+proposals.length.toString());
