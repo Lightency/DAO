@@ -6,7 +6,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import MultiActionAreaCard from "./MultiActionAreaCard";
 import { Button } from "@material-ui/core";
 
+
+
 function GovernanceCommunity() {
+
   function getModalStyle() {
     const top = 25;
     const left = 25;
@@ -33,6 +36,8 @@ function GovernanceCommunity() {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
+  const [balance , setBalance] = React.useState(false) ;
+
 
   const [proposals, setProposals] = React.useState([]);
 
@@ -42,7 +47,7 @@ function GovernanceCommunity() {
   const handleClose = () => {
     setOpen(false);
   };
-
+  
   React.useEffect(() => {
     contract.getProposals().then((proposals) => {
       proposals.forEach((proposal) => {
@@ -59,6 +64,20 @@ function GovernanceCommunity() {
       });
     });
   }, []);
+  React.useEffect(() => {
+    contract.myFirstCrossContractCall({accountId:"alaasouabni.testnet"}).then((test) => {
+      setTimeout(function(){
+        console.log(accountId);
+    }, 2000);
+      if(test!=0){
+        setBalance(true);
+        console.log(test);
+      };
+    });
+
+  }
+  );
+
 
   return (
     <div>
@@ -66,6 +85,8 @@ function GovernanceCommunity() {
       <Button variant="contained" color="primary" onClick={handleOpen}>
         Create a new proposal
       </Button>
+      
+      <Button variant = "contained" color="primary" disabled={balance}>test</Button>
       <Modal
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"

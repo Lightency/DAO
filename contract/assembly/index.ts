@@ -13,6 +13,7 @@
  */
 
 import { context, logging, PersistentVector, storage, u128,PersistentMap } from 'near-sdk-as'
+import { Context, ContractPromise } from "near-sdk-core";
 import {Proposal, proposals} from './model';
 const approves = new PersistentMap<string, u64>("a:");
 const data_yes= new PersistentVector<PersistentMap<string,u64>>("c");
@@ -186,4 +187,60 @@ export function historyNo(proposalID:i32):string{
       ch=ch+history_no[proposalID].getSome(i)+'\n';
     }
     return ch;
+}
+
+
+
+// parameters taken by cross contract method
+@nearBindgen
+class FTBalanceOf {
+  account_id: string;
+}
+
+@nearBindgen
+class Nothing {}
+
+export function myFirstCrossContractCall(accountId: string): void {
+  // Invoke a method on another contract
+  // This will send an ActionReceipt to the shard where the contract lives.
+  ContractPromise.create<FTBalanceOf>(
+    "potato_token.testnet", // contract account id
+    "ft_balance_of", // // contract method name
+    {
+      account_id: accountId,
+    },
+    5_000_000_000_000, // gas to attach
+    u128.Zero // yocto NEAR to attach
+  )
+    // After the smart contract method finishes a DataReceipt will be sent back
+    // .then registers a method to handle that incoming DataReceipt
+    .then<Nothing>(
+      Context.contractName, // this contract's account id
+      "myCallback", // the method to call after the previous cross contract call finishes
+      {},
+      5_000_000_000_000, // gas to attach to the callback
+      u128.Zero // yocto NEAR to attach to the callback
+    )
+    
+    .returnAsResult(); // return the result of myCallback
+}
+
+export function myCallback(): u128 {
+  // an array of results from the previous cross contract calls
+  // this array will have a length of 1, unless the previous
+  // promises was created using ContractPromise.all
+  const results = ContractPromise.getResults();
+  assert(results.length == 1, "This is a callback method");
+
+  // the result of the cross contract call
+  const result = results[0];
+
+  if (result.succeeded) {
+    // the cross contract call succeeded
+    const balance = result.decode<u128>();
+
+  
+}
+const balance = result.decode<u128>();
+return balance;
 }
