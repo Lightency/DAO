@@ -5,15 +5,23 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import {Link} from "react-router-dom";
+//import ProgressBar from "./ProgressBar";
+import ProgressBar from "./ProgressBar";
+import Grid from "@material-ui/core/Grid";
+import { CardActionArea } from "@mui/material";
+
+
+
+
 
 export default function MultiActionAreaCard(prop) {
   return (
-    <div>
+    <div className="card">
       
-      <Card  sx={{ maxWidth: 1000 }}>
-      
+      <Card style={{width:500, textAlign:'center', margin:5, height:275, backgroundColor:"#F4F1DE"}} sx={{ maxWidth: 1000 }}>
+      <CardActionArea>
+      <Link to={`community-governance/${prop.id}`} style={{ textDecoration: 'none', color:"black" }}>
         <CardContent>
-        <Link to={`community-governance/${prop.id}`}> test </Link>
           <Typography gutterBottom variant="h5" component="div">
             {prop.title}
           </Typography>
@@ -23,15 +31,20 @@ export default function MultiActionAreaCard(prop) {
           <Typography variant="body2" color="text.secondary">
             {prop.url}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          {/*<Typography variant="body2" color="text.secondary">
             Yes = {prop.votes_yes}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             No = {prop.votes_no}
-          </Typography>
+  </Typography>*/}
+          <ProgressBar yes={prop.votes_yes} no={prop.votes_no}/>
         </CardContent>
+        </Link>
+        </CardActionArea>
         <CardActions>
-          <Button
+        <Grid container justifyContent="center">
+          
+          <Button variant="contained" style={{color:"#c9c104" ,backgroundColor:"#0c1424", flexDirection: "row" ,marginLeft: 20, justifyContent: 'space-evenly', fontFamily:"Halva"}}
             onClick={() => {
               contract.vote({ proposalID: prop.id, voteType: "1" });
             }}
@@ -39,7 +52,7 @@ export default function MultiActionAreaCard(prop) {
           >
             Vote Yes
           </Button>
-          <Button
+          <Button variant="contained" style={{color:"#c9c104" ,backgroundColor:"#0c1424", flexDirection: "row" ,marginLeft: 20, justifyContent: 'space-evenly', fontFamily:"Halva"}}
             onClick={() => {
               contract.vote({ proposalID: prop.id, voteType: "0" });
             }}
@@ -47,7 +60,9 @@ export default function MultiActionAreaCard(prop) {
           >
             Vote No
           </Button>
+          </Grid>
         </CardActions>
+        
       </Card>
     </div>
   );

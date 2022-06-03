@@ -5,6 +5,9 @@ import Box from "@mui/material/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import MultiActionAreaCard from "./MultiActionAreaCard";
 import { Button } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+import {Link} from "react-router-dom";
+
 
 
 
@@ -36,7 +39,7 @@ function GovernanceCommunity() {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
-  const [balance , setBalance] = React.useState(false) ;
+  //const [balance , setBalance] = React.useState(false) ;
 
 
   const [proposals, setProposals] = React.useState([]);
@@ -64,7 +67,7 @@ function GovernanceCommunity() {
       });
     });
   }, []);
-  React.useEffect(() => {
+  /*React.useEffect(() => {
     contract.myFirstCrossContractCall({accountId:"alaasouabni.testnet"}).then((test) => {
       setTimeout(function(){
         console.log(accountId);
@@ -77,16 +80,16 @@ function GovernanceCommunity() {
 
   }
   );
-
+*/
 
   return (
-    <div>
-      <h1>Governance</h1>
-      <Button variant="contained" color="primary" onClick={handleOpen}>
+    <div className="container">
+      <h1 style={{color:"#c9c104"}}>Community</h1>
+      <p align="right">
+      <Button variant="contained" style={{color:"#c9c104" ,backgroundColor:"#0c1424", fontFamily:"Halva", marginRight:20}} onClick={handleOpen}>
         Create a new proposal
       </Button>
-      
-      <Button variant = "contained" color="primary" disabled={balance}>test</Button>
+      </p>
       <Modal
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
@@ -98,10 +101,18 @@ function GovernanceCommunity() {
         </div>
       </Modal>
 
-      <Box display="grid" flexWrap="wrap" justifyContent="center">
+      <Box justifyContent="center">
+      <Grid
+  container
+  spacing={4}
+  justifyContent="center"
+  style={{ marginTop: "80px" }}
+>
         {proposals.map((proposal) => {
           return (
-            <div className="cards_items" key={proposal.id}>
+            
+            <div key={proposal.id}>
+
               <MultiActionAreaCard
                 title={proposal.title}
                 description={proposal.description}
@@ -110,9 +121,11 @@ function GovernanceCommunity() {
                 votes_yes={proposal.votes_yes}
                 votes_no={proposal.votes_no}
               />
+
             </div>
           );
         })}
+        </Grid>
       </Box>
     </div>
   );
