@@ -6,13 +6,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import MultiActionAreaCard from "./MultiActionAreaCard";
 import { Button } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-import {Link} from "react-router-dom";
-
-
-
 
 function GovernanceCommunity() {
-
   function getModalStyle() {
     const top = 25;
     const left = 25;
@@ -41,7 +36,6 @@ function GovernanceCommunity() {
   const [open, setOpen] = React.useState(false);
   //const [balance , setBalance] = React.useState(false) ;
 
-
   const [proposals, setProposals] = React.useState([]);
 
   const handleOpen = () => {
@@ -50,7 +44,7 @@ function GovernanceCommunity() {
   const handleClose = () => {
     setOpen(false);
   };
-  
+
   React.useEffect(() => {
     contract.getProposals().then((proposals) => {
       proposals.forEach((proposal) => {
@@ -84,11 +78,20 @@ function GovernanceCommunity() {
 
   return (
     <div className="container">
-      <h1 style={{color:"#c9c104"}}>Community</h1>
+      <h1 style={{ color: "#c9c104" }}>Community</h1>
       <p align="right">
-      <Button variant="contained" style={{color:"#c9c104" ,backgroundColor:"#0c1424", fontFamily:"Halva", marginRight:20}} onClick={handleOpen}>
-        Create a new proposal
-      </Button>
+        <Button
+          variant="contained"
+          style={{
+            color: "#c9c104",
+            backgroundColor: "#0c1424",
+            fontFamily: "Halva",
+            marginRight: 20,
+          }}
+          onClick={handleOpen}
+        >
+          Create a new proposal
+        </Button>
       </p>
       <Modal
         aria-labelledby="simple-modal-title"
@@ -102,29 +105,26 @@ function GovernanceCommunity() {
       </Modal>
 
       <Box justifyContent="center">
-      <Grid
-  container
-  spacing={4}
-  justifyContent="center"
-  style={{ marginTop: "80px" }}
->
-        {proposals.map((proposal) => {
-          return (
-            
-            <div key={proposal.id}>
-
-              <MultiActionAreaCard
-                title={proposal.title}
-                description={proposal.description}
-                url={proposal.url}
-                id={proposal.id}
-                votes_yes={proposal.votes_yes}
-                votes_no={proposal.votes_no}
-              />
-
-            </div>
-          );
-        })}
+        <Grid
+          container
+          spacing={4}
+          justifyContent="center"
+          style={{ marginTop: "80px" }}
+        >
+          {proposals.map((proposal) => {
+            return (
+              <div key={proposal.id}>
+                <MultiActionAreaCard
+                  title={proposal.title}
+                  description={proposal.description}
+                  url={proposal.url}
+                  id={proposal.id}
+                  votes_yes={proposal.votes_yes}
+                  votes_no={proposal.votes_no}
+                />
+              </div>
+            );
+          })}
         </Grid>
       </Box>
     </div>

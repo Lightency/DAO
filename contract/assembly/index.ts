@@ -184,7 +184,7 @@ export function historyYes(proposalID:i32):string{
 export function historyNo(proposalID:i32):string{
   let ch="";
   for (let i: u64 = 1; i <= get_num_no(proposalID); i++) {
-      ch=ch+history_no[proposalID].getSome(i)+',';
+      ch=ch+history_no[proposalID].getSome(i)+'\n';
     }
     return ch;
 }
