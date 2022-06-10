@@ -1,17 +1,3 @@
-/*
- * This is an example of an AssemblyScript smart contract with two simple,
- * symmetric functions:
- *
- * 1. setGreeting: accepts a greeting, such as "howdy", and records it for the
- *    user (account_id) who sent the request
- * 2. getGreeting: accepts an account_id and returns the greeting saved for it,
- *    defaulting to "Hello"
- *
- * Learn more about writing NEAR smart contracts with AssemblyScript:
- * https://docs.near.org/docs/develop/contracts/as/intro
- *
- */
-
 import { context, logging, PersistentVector, storage, u128,PersistentMap } from 'near-sdk-as'
 import { Context, ContractPromise } from "near-sdk-core";
 import {Proposal, proposals} from './model';
@@ -244,3 +230,43 @@ export function myCallback(): u128 {
 const balance = result.decode<u128>();
 return balance;
 }
+
+@nearBindgen
+class NearToEth {
+  eth_recipient:string;
+  amount:u128;
+}
+export function NearEth(ethRecipient:string, depositAmount:u128): void {
+// Inside a contract function on ContractA, a cross contract call is started
+// From ContractA to ContractB
+ContractPromise.create<NearToEth>(
+  "rustcontract.testnet", // contract account id
+  "crosscontract_call_rust", // // contract method name
+  {
+    eth_recipient: ethRecipient,
+    amount: depositAmount,
+
+  },
+  20_000_000_000_000, // gas to attach
+  u128.Zero // yocto NEAR to attach
+)
+.then<Nothing>(
+  Context.contractName, // this contract's account id
+  "rustCallback", // the method to call after the previous cross contract call finishes
+  {},
+  5_000_000_000_000, // gas to attach to the callback
+  u128.Zero // yocto NEAR to attach to the callback
+)
+
+.returnAsResult(); // return the result of myCallback
+}
+export function rustCallback(): string {
+  let ch=""
+  // an array of results from the previous cross contract calls
+  // this array will have a length of 1, unless the previous
+  // promises was created using ContractPromise.all
+  const results = ContractPromise.getResults();
+  if(results.length == 1){ ch="this is our callback function";}
+  return ch;
+}
+
