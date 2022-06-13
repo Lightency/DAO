@@ -61,20 +61,6 @@ function GovernanceCommunity() {
       });
     });
   }, []);
-  /*React.useEffect(() => {
-    contract.myFirstCrossContractCall({accountId:"alaasouabni.testnet"}).then((test) => {
-      setTimeout(function(){
-        console.log(accountId);
-    }, 2000);
-      if(test!=0){
-        setBalance(true);
-        console.log(test);
-      };
-    });
-
-  }
-  );
-*/
 
   return (
     <div className="container">
@@ -85,7 +71,7 @@ function GovernanceCommunity() {
           style={{
             color: "#c9c104",
             backgroundColor: "#0c1424",
-            fontFamily: "Halva",
+
             marginRight: 20,
           }}
           onClick={handleOpen}

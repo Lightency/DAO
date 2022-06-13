@@ -10,6 +10,7 @@ import Governance from "./views/Governance";
 import Dashboard from "./views/Dashboard";
 import GovernanceCommunity from "./views/Community";
 import CardDetails from "./views/Community/CardDetails";
+import Lockups from "./views/Lockups";
 
 export default function App() {
   return (
@@ -29,10 +30,13 @@ export default function App() {
           </Route>
           <Route path="community-governance">
             <Route index element={<GovernanceCommunity />}></Route>
-          
-          <Route path="community-governance/:CardId">
-            <Route index element={<CardDetails />}></Route>
+
+            <Route path="community-governance/:CardId">
+              <Route index element={<CardDetails />}></Route>
+            </Route>
           </Route>
+          <Route path="lockups">
+            <Route index element={<Lockups />}></Route>
           </Route>
         </Route>
       </Routes>

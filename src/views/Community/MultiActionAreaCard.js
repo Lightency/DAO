@@ -52,7 +52,7 @@ export default function MultiActionAreaCard(prop) {
                 flexDirection: "row",
                 marginLeft: 20,
                 justifyContent: "space-evenly",
-                fontFamily: "Halva",
+               
               }}
               onClick={() => {
                 contract.vote({ proposalID: prop.id, voteType: "1" });
@@ -69,7 +69,7 @@ export default function MultiActionAreaCard(prop) {
                 flexDirection: "row",
                 marginLeft: 20,
                 justifyContent: "space-evenly",
-                fontFamily: "Halva",
+               
               }}
               onClick={() => {
                 contract.vote({ proposalID: prop.id, voteType: "0" });

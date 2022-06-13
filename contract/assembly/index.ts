@@ -235,12 +235,34 @@ export function myCallback(): u128 {
   // the result of the cross contract call
   const result = results[0];
 
-  if (result.succeeded) {
-    // the cross contract call succeeded
-    const balance = result.decode<u128>();
+  const balance = result.decode<u128>();
 
-  
-}
-const balance = result.decode<u128>();
 return balance;
 }
+
+
+
+// export function getBalance(accountId: string): any{
+//   // Invoke a method on another contract
+//   // This will send an ActionReceipt to the shard where the contract lives.
+//   ContractPromise.create<FTBalanceOf>(
+//     "potato_token.testnet", // contract account id
+//     "ft_balance_of", // // contract method name
+//     {
+//       account_id: accountId,
+//     },
+//     5_000_000_000_000, // gas to attach
+//     u128.Zero // yocto NEAR to attach
+//   )
+//     // After the smart contract method finishes a DataReceipt will be sent back
+//     // .then registers a method to handle that incoming DataReceipt
+//     .then<Nothing>(
+//       Context.contractName, // this contract's account id
+//       "myCallback", // the method to call after the previous cross contract call finishes
+//       {},
+//       5_000_000_000_000, // gas to attach to the callback
+//       u128.Zero // yocto NEAR to attach to the callback
+//     )
+    
+//     .returnAsResult(); // return the result of myCallback
+// }

@@ -38,7 +38,7 @@ function Governance() {
           <span>Create a new proposal</span>
         </a>
       </button>
-      <h1>Proposals</h1>
+      
       <div className="Governance">
         {governance &&
           governance.map((governance) => (

@@ -1,12 +1,14 @@
 import * as React from "react";
 
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faGauge,
   faMoneyBill,
   faWallet,
   faUsers,
+  faRightLeft,
+  faFire,
 } from "@fortawesome/free-solid-svg-icons";
 import "./sidebar.module.css";
 
@@ -20,12 +22,12 @@ function Navigation() {
             <span>Dashboard</span>
           </NavLink>
         </li>
-        <li>
+        {/* <li>
           <NavLink to="/wallet">
             <FontAwesomeIcon icon={faWallet} />
             <span>Wallet</span>
           </NavLink>
-        </li>
+        </li> */}
         <li>
           <NavLink to="/governance">
             <FontAwesomeIcon icon={faMoneyBill} />
@@ -37,6 +39,27 @@ function Navigation() {
           <NavLink to="/community-governance">
             <FontAwesomeIcon icon={faUsers} />
             <span>Community</span>
+          </NavLink>
+        </li>
+
+        <li>
+          <a href="https://testnet.ref.finance/">
+            <FontAwesomeIcon icon={faRightLeft} />
+            <span>Swap Token</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="https://testnet.ref.finance/pool/628">
+            <FontAwesomeIcon icon={faFire} />
+            <span>Light Pool</span>
+          </a>
+        </li>
+
+        <li>
+          <NavLink to="/lockups">
+            <FontAwesomeIcon icon={faMoneyBill} />
+            <span>lockups</span>
           </NavLink>
         </li>
       </ul>

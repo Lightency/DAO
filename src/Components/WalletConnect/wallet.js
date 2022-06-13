@@ -16,6 +16,20 @@ export default function Wallet() {
   const [account, setAccount] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const [balance, setBalance] = useState(null);
+
+  // useEffect(() => {
+  //   contract.myFirstCrossContractCall().then((test) => {
+  //     setTimeout(function () {
+  //       console.log(accountId);
+  //     }, 2000);
+  //     if (test != 0) {
+  //       setBalance(true);
+  //       console.log(test);
+  //     }
+  //   });
+  // }, []);
+
   const getAccount = useCallback(async () => {
     if (!accountId) {
       return null;

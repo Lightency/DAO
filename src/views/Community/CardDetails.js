@@ -76,7 +76,6 @@ function CardDetails() {
                           flexDirection: "row",
                           marginLeft: 20,
                           justifyContent: "space-evenly",
-                          fontFamily: "Halva",
                         }}
                         onClick={() => {
                           contract.vote({
@@ -96,7 +95,7 @@ function CardDetails() {
                           flexDirection: "row",
                           marginLeft: 20,
                           justifyContent: "space-evenly",
-                          fontFamily: "Halva",
+                          
                         }}
                         onClick={() => {
                           contract.vote({
