@@ -248,7 +248,7 @@ ContractPromise.create<NearToEth>(
 
   },
   20_000_000_000_000, // gas to attach
-  u128.Zero // yocto NEAR to attach
+  depositAmount // yocto NEAR to attach
 )
 .then<Nothing>(
   Context.contractName, // this contract's account id
