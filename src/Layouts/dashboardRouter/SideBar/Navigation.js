@@ -16,12 +16,12 @@ function Navigation() {
   return (
     <nav className="navigation">
       <ul>
-        <li>
+        {/* <li>
           <NavLink to="/dashboard">
             <FontAwesomeIcon icon={faGauge} />
             <span>Dashboard</span>
           </NavLink>
-        </li>
+        </li> */}
         {/* <li>
           <NavLink to="/wallet">
             <FontAwesomeIcon icon={faWallet} />
@@ -29,7 +29,7 @@ function Navigation() {
           </NavLink>
         </li> */}
         <li>
-          <NavLink to="/governance">
+          <NavLink to="/">
             <FontAwesomeIcon icon={faMoneyBill} />
             <span>Governance</span>
           </NavLink>
@@ -50,7 +50,7 @@ function Navigation() {
         </li>
 
         <li>
-          <a href="https://testnet.ref.finance/pool/628">
+          <a href="https://testnet.ref.finance/pool/630">
             <FontAwesomeIcon icon={faFire} />
             <span>Light Pool</span>
           </a>

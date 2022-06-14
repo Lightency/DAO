@@ -16,12 +16,12 @@ export default function App() {
   return (
     <>
       <Routes>
-        <Route exact path="/" element={<DashboardLayout />}>
+        <Route element={<DashboardLayout />}>
           <Route path="wallet">
             <Route index element={<WalletDetails />}></Route>
           </Route>
 
-          <Route path="governance">
+          <Route path="/">
             <Route index element={<Governance />}></Route>
           </Route>
 
