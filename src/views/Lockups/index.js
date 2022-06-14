@@ -4,7 +4,7 @@ function Lockups() {
   return (
     <div className="container">
       <iframe
-        src="https://ft-lockup.github.io//#/potato.factory008.ft-lockup.testnet/admin/lockups"
+        src="http://localhost:3000/#/potato.factory008.ft-lockup.testnet/admin/lockups"
         allowFullScreen
       ></iframe>
     </div>

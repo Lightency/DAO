@@ -6818,6 +6818,11 @@
   "resolved" "https://registry.npmjs.org/ncp/-/ncp-2.0.0.tgz"
   "version" "2.0.0"
 
+"nea@^0.0.1":
+  "integrity" "sha512-MCJWZ+jJj1R62l8dLfx2I8saxlwoSHV0DqIvJ9TCiqsEFxEgy6Egpf/thBP/LbHQtR2A312Tr/sSFfY9KpNHMg=="
+  "resolved" "https://registry.npmjs.org/nea/-/nea-0.0.1.tgz"
+  "version" "0.0.1"
+
 "near-api-js@^0.42.0":
   "integrity" "sha512-YtDR0sXHL2CclXZdscqUIjoc4Vp/o09CSY1lQ6mygSNbWp5ghLAR1kNBQnALGGQhYC6NLBCzJQJZMb2IQr2WzA=="
   "resolved" "https://registry.npmjs.org/near-api-js/-/near-api-js-0.42.0.tgz"
