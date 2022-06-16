@@ -64,9 +64,9 @@ export default function ProposalForm() {
             onChange={handleChange}
           >
             <option value="default">----Please choose an option----</option>
-            <option value="test1">test1</option>
-            <option value="test2">test2</option>
-            <option value="test3">test3</option>
+            <option value="test1">Transfer proposal</option>
+            <option value="test2">Poll proposal</option>
+            
           </select>
         </label>
 

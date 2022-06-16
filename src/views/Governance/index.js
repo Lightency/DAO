@@ -35,7 +35,7 @@ function Governance() {
 
       <button>
         <a href="https://testnet.app.astrodao.com/dao/lightency-test.sputnikv2.testnet/proposals/new">
-          <span>Create a new proposal</span>
+          <span>Add proposal</span>
         </a>
       </button>
       
@@ -47,7 +47,7 @@ function Governance() {
               <h2> Description : {governance.description.split("$")[0]}</h2>
               <h2> Kind : {governance.kind.type}</h2>
               <h2> Status : {governance.status}</h2>
-              <button>
+              <button className="view">
                 <a
                   href={`https://testnet.app.astrodao.com/dao/lightency-test.sputnikv2.testnet/proposals/${governance.id}`}
                 >

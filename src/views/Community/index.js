@@ -62,6 +62,17 @@ function GovernanceCommunity() {
     });
   }, []);
 
+  // background-color: #c9c104;
+  // border-radius: 5px;
+  // border: none;
+  
+  // cursor: pointer;
+  // padding: 0.3em 0.75em;
+  // width: 250px;
+
+  // margin-bottom: 50px;
+
+
   return (
     <div className="container">
       <h1 style={{ color: "#c9c104" }}>Community</h1>
@@ -69,14 +80,16 @@ function GovernanceCommunity() {
         <Button
           variant="contained"
           style={{
-            color: "#c9c104",
-            backgroundColor: "#0c1424",
-
+            color: "white",
+            backgroundColor: "#c9c104",
+            borderRadius: 5,
+            border: "none",
+            float: "left",
             marginRight: 20,
           }}
           onClick={handleOpen}
         >
-          Create a new proposal
+          Add proposal
         </Button>
       </p>
       <Modal
