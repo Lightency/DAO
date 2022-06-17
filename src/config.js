@@ -1,4 +1,4 @@
-const CONTRACT_NAME = process.env.CONTRACT_NAME || "lighttest.testnet";
+const CONTRACT_NAME = process.env.CONTRACT_NAME || "lightency_dao.testnet";
 
 function getConfig(env) {
   switch (env) {

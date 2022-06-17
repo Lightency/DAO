@@ -16,18 +16,7 @@ function Navigation() {
   return (
     <nav className="navigation">
       <ul>
-        {/* <li>
-          <NavLink to="/dashboard">
-            <FontAwesomeIcon icon={faGauge} />
-            <span>Dashboard</span>
-          </NavLink>
-        </li> */}
-        {/* <li>
-          <NavLink to="/wallet">
-            <FontAwesomeIcon icon={faWallet} />
-            <span>Wallet</span>
-          </NavLink>
-        </li> */}
+        
         <li>
           <NavLink to="/">
             <FontAwesomeIcon icon={faMoneyBill} />
@@ -52,7 +41,7 @@ function Navigation() {
         <li>
           <a href="https://testnet.ref.finance/pool/630">
             <FontAwesomeIcon icon={faFire} />
-            <span>Light Pool</span>
+            <span>Add/remove liquidity</span>
           </a>
         </li>
 

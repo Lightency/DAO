@@ -4,7 +4,7 @@ function Lockups() {
   return (
     <div className="container">
       <iframe
-        src="http://localhost:3000/#/lights.factory008.ft-lockup.testnet/admin/lockups"
+        src="https://lockups.lightency.io/#/lights.factory008.ft-lockup.testnet/lockups"
         allowFullScreen
       ></iframe>
     </div>
