@@ -54,6 +54,7 @@ export default function ProposalForm() {
             name="URL"
             value={inputs.URL || ""}
             onChange={handleChange}
+            required={false}
           />
         </label>
         <label>
@@ -62,8 +63,9 @@ export default function ProposalForm() {
             name="ProposalType"
             value={inputs.value}
             onChange={handleChange}
+            required = {true}
           >
-            <option value="default">----Please choose an option----</option>
+            <option value="">----Please choose an option----</option>
             <option value="test1">Transfer proposal</option>
             <option value="test2">Poll proposal</option>
             

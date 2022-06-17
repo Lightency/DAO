@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import * as React from "react";
 import Wallet from "../../../Components/WalletConnect/wallet";
+import axios from "axios";
+import { async } from "regenerator-runtime";
+
 const NavbarContainer = styled.nav`
   width: 100%;
   padding: 20px;
@@ -8,7 +11,7 @@ const NavbarContainer = styled.nav`
   align-items: center;
   justify-content: space-between;
   box-shadow: 0px 0px 4px 4px rgba(8, 19, 34, 0.2);
-background-color: #081322;
+  background-color: #081322;
   img {
     width: 80px;
     height: auto;
@@ -29,6 +32,28 @@ background-color: #081322;
 `;
 
 function Navbar() {
+  const [balance, setBalance] = React.useState();
+  const [loading, setLoading] = React.useState(true);
+
+  const fetchData = async () => {
+    
+     axios
+      .get(
+        "https://testnet.nearblocks.io/api/account/balance?address=" +
+          window.accountId +
+          "&networkId=testnet"
+      )
+      .then((res) => {
+        setBalance(res.data.balance);
+        setLoading(false);
+        console.log(res);
+      });
+  };
+
+  React.useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <NavbarContainer>
       <div className="content">
@@ -38,6 +63,7 @@ function Navbar() {
           className="logo"
         />
         <label>{window.accountId}</label>
+        <label>{balance}</label>
       </div>
       <Wallet />
     </NavbarContainer>

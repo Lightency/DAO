@@ -1,7 +1,10 @@
 import { connect, Contract, keyStores, WalletConnection } from "near-api-js";
+import { async } from "regenerator-runtime";
 import getConfig from "./config";
 
-const nearConfig = getConfig(process.env.NODE_ENV || "development");
+const nearConfig = getConfig("development");
+
+console.log(`Using config: ${JSON.stringify(nearConfig, null, 2)}`);
 
 // Initialize contract & set global variables
 export async function initContract() {

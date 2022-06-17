@@ -1,6 +1,5 @@
 import * as React from "react";
 import "./style.module";
-import { Link } from "react-router-dom";
 
 import axios from "axios";
 
@@ -8,7 +7,6 @@ function Governance() {
   const [governance, setGovernance] = React.useState();
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(null);
-
   React.useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
@@ -27,18 +25,17 @@ function Governance() {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-
   return (
     // map through the data and display the data
     <div className="container">
-      <h1>Governance</h1>
+      <h1>Governance </h1>
 
       <button>
         <a href="https://testnet.app.astrodao.com/dao/lightency-test.sputnikv2.testnet/proposals/new">
           <span>Add proposal</span>
         </a>
       </button>
-      
+
       <div className="Governance">
         {governance &&
           governance.map((governance) => (
