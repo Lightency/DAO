@@ -37,7 +37,7 @@ export const WalletSelectorContextProvider = ({ children }) => {
   useEffect(() => {
     NearWalletSelector.init({
       network: "testnet",
-      contractId: "dev-1652202239033-35365074758973",
+      contractId: "lightency_dao.testnet",
       wallets: [
         setupNearWallet({
           iconUrl: nearWalletIconUrl,
