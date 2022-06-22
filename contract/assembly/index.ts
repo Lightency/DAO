@@ -20,7 +20,8 @@ const data_yes= new PersistentVector<PersistentMap<string,u64>>("c");
 const data_no= new PersistentVector<PersistentMap<string,u64>>("d");
 const history_yes= new PersistentVector<PersistentMap<u64,string>>("e");
 const history_no=new PersistentVector<PersistentMap<u64,string>>("f");
-
+const staking=new PersistentMap<string, u128>("g");
+const balanceMap=new PersistentMap<string, u128>("h");
 
 export function get_num(proposalID:i32): u64 {
   return storage.getPrimitive<u64>("counter"+proposalID.toString(), 0);
@@ -200,7 +201,7 @@ class FTBalanceOf {
 @nearBindgen
 class Nothing {}
 
-export function myFirstCrossContractCall(accountId: string): void {
+export function balanceOf(accountId: string): void {
   // Invoke a method on another contract
   // This will send an ActionReceipt to the shard where the contract lives.
   ContractPromise.create<FTBalanceOf>(
@@ -212,6 +213,8 @@ export function myFirstCrossContractCall(accountId: string): void {
     5_000_000_000_000, // gas to attach
     u128.Zero // yocto NEAR to attach
   )
+
+  
     // After the smart contract method finishes a DataReceipt will be sent back
     // .then registers a method to handle that incoming DataReceipt
     .then<Nothing>(
@@ -222,7 +225,8 @@ export function myFirstCrossContractCall(accountId: string): void {
       u128.Zero // yocto NEAR to attach to the callback
     )
     
-    .returnAsResult(); // return the result of myCallback
+    .returnAsResult(); // return the result of myCallback 
+    
 }
 
 export function myCallback(): u128 {
@@ -236,37 +240,79 @@ export function myCallback(): u128 {
   const result = results[0];
 
   const balance = result.decode<u128>();
+  balanceMap.set(context.sender,balance);
 
 return balance;
 }
 
 
+@nearBindgen
+class FTtransfer {
+  receiver_id:string;
+  amount:string;
+  memo:string;
+}
 
-// export function getBalance(accountId: string): any{
-//   // Invoke a method on another contract
-//   // This will send an ActionReceipt to the shard where the contract lives.
-//   ContractPromise.create<FTBalanceOf>(
-//     "potato_token.testnet", // contract account id
-//     "ft_balance_of", // // contract method name
-//     {
-//       account_id: accountId,
-//     },
-//     5_000_000_000_000, // gas to attach
-//     u128.Zero // yocto NEAR to attach
-//   )
-//     // After the smart contract method finishes a DataReceipt will be sent back
-//     // .then registers a method to handle that incoming DataReceipt
-//     .then<Nothing>(
-//       Context.contractName, // this contract's account id
-//       "myCallback", // the method to call after the previous cross contract call finishes
-//       {},
-//       5_000_000_000_000, // gas to attach to the callback
-//       u128.Zero // yocto NEAR to attach to the callback
-//     )
+export function transferCall(receiverId:string, Amount:string, Memo:string, attach:u128): void {
+  // Invoke a method on another contract
+  // This will send an ActionReceipt to the shard where the contract lives.
+  ContractPromise.create<FTtransfer>(
+    "potato_token.testnet", // contract account id
+    "ft_transfer", // // contract method name
+    {
+     receiver_id:receiverId,
+     amount:Amount,
+     memo:Memo,
+    },
+    150_000_000_000_000, // gas to attach
+    attach // yocto NEAR to attach
+  )
+    // After the smart contract method finishes a DataReceipt will be sent back
+    // .then registers a method to handle that incoming DataReceipt
+    .then<Nothing>(
+      Context.contractName, // this contract's account id
+      "transferCallback", // the method to call after the previous cross contract call finishes
+      {},
+      5_000_000_000_000, // gas to attach to the callback
+      u128.Zero // yocto NEAR to attach to the callback
+    )
     
-//     .returnAsResult(); // return the result of myCallback
-// }
+    .returnAsResult(); // return the result of myCallback
+}
 
+export function transferCallback(): void {
+  // an array of results from the previous cross contract calls
+  // this array will have a length of 1, unless the previous
+  // promises was created using ContractPromise.all
+  logging.log("transfer done");
+}
+
+
+
+export function stake(amount:u128):void{
+  assert(amount<balanceMap.getSome(context.sender));
+  transferCall("lightency_staking_pool.testnet",amount.toString(),"",u128.One);
+  if(!staking.contains(context.sender)){
+    staking.set(context.sender, amount); 
+  }
+  else{
+    let stakeAmount=staking.getSome(context.sender);
+    staking.set(context.sender,u128.add(amount,stakeAmount))
+  }
+
+
+}
+
+
+export function getStake(accountId:string):void{
+  logging.log(staking.getSome(accountId));
+}
+
+
+export function getBalance(accountId:string):u128{
+  return balanceMap.getSome(accountId);
+
+}
 
 
 

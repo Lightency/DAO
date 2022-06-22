@@ -35,9 +35,10 @@ export async function initContract() {
         "historyYes",
         "historyNo",
         "getBalance",
+        "getStake",
       ],
       // Change methods can modify the state. But you don't receive the returned value when called.
-      changeMethods: ["setGreeting", "addProposal", "vote"],
+      changeMethods: ["setGreeting", "addProposal", "vote", "transferCall", "stake","balanceOf"],
     }
   );
 }

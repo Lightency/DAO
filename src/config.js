@@ -1,4 +1,4 @@
-const CONTRACT_NAME = "lightency_dao.testnet";
+const CONTRACT_NAME = "dev-1655805759535-22512778050998";
 
 function getConfig(env) {
   switch (env) {
