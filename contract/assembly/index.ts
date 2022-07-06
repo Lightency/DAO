@@ -21,6 +21,7 @@ const data_no= new PersistentVector<PersistentMap<string,u64>>("d");
 const history_yes= new PersistentVector<PersistentMap<u64,string>>("e");
 const history_no=new PersistentVector<PersistentMap<u64,string>>("f");
 
+const yocto = 1000000000000000000;
 
 export function get_num(proposalID:i32): u64 {
   return storage.getPrimitive<u64>("counter"+proposalID.toString(), 0);
@@ -267,6 +268,41 @@ return balance;
 //     .returnAsResult(); // return the result of myCallback
 // }
 
+
+
+@nearBindgen
+class FTTransfer {
+  receiver_id: string;
+  amount: u128;
+}
+
+//function to transfer tokens from one account to another
+export function transfer(receiver_id: string, amount: u128): void {
+
+  // Invoke a method on another contract
+  // This will send an ActionReceipt to the shard where the contract lives.
+  ContractPromise.create<FTTransfer>(
+    "near.testnet", // contract account id
+    "ft_transfer", // // contract method name
+    {
+      receiver_id: receiver_id,
+      amount: amount,
+    },
+    5_000_000_000_000, // gas to attach
+    u128.One // yocto NEAR to attach
+  )
+    // After the smart contract method finishes a DataReceipt will be sent back
+    // .then registers a method to handle that incoming DataReceipt
+    .then<Nothing>(
+      Context.contractName, // this contract's account id
+      "myCallback", // the method to call after the previous cross contract call finishes
+      {},
+      5_000_000_000_000, // gas to attach to the callback
+      u128.Zero // yocto NEAR to attach to the callback
+    )
+
+    .returnAsResult(); // return the result of myCallback
+}
 
 
 

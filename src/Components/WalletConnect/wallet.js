@@ -65,6 +65,7 @@ export default function Wallet() {
 
   const handleSignIn = () => {
     selector.show();
+    localStorage.setItem("potato", "potato_token.testnet");
   };
 
   React.useEffect(() => {

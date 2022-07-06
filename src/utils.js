@@ -4,7 +4,7 @@ import getConfig from "./config";
 
 const nearConfig = getConfig("development");
 
-console.log(`Using config: ${JSON.stringify(nearConfig, null, 2)}`);
+// console.log(`Using config: ${JSON.stringify(nearConfig, null, 2)}`);
 
 // Initialize contract & set global variables
 export async function initContract() {
