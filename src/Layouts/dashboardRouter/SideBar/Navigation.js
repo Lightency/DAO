@@ -4,6 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faGauge,
+  faPiggyBank,
   faMoneyBill,
   faWallet,
   faUsers,
@@ -49,6 +50,12 @@ function Navigation() {
           <NavLink to="/lockups">
             <FontAwesomeIcon icon={faMoneyBill} />
             <span>lockups</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/stake">
+            <FontAwesomeIcon icon={faPiggyBank} />
+            <span>Stake</span>
           </NavLink>
         </li>
       </ul>

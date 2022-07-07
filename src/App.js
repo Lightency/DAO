@@ -7,10 +7,11 @@ import DashboardLayout from "./Layouts/DashboardLayout";
 import { Routes, Route } from "react-router-dom";
 import WalletDetails from "./views/Wallet";
 import Governance from "./views/Governance";
-import Dashboard from "./views/Dashboard";
+//import Dashboard from "./views/Dashboard";
 import GovernanceCommunity from "./views/Community";
 import CardDetails from "./views/Community/CardDetails";
 import Lockups from "./views/Lockups";
+import Stake from "./views/Stake";
 
 export default function App() {
   return (
@@ -24,10 +25,6 @@ export default function App() {
           <Route path="/">
             <Route index element={<Governance />}></Route>
           </Route>
-
-          <Route path="dashboard">
-            <Route index element={<Dashboard />}></Route>
-          </Route>
           <Route path="community-governance">
             <Route index element={<GovernanceCommunity />}></Route>
 
@@ -37,6 +34,9 @@ export default function App() {
           </Route>
           <Route path="lockups">
             <Route index element={<Lockups />}></Route>
+          </Route>
+          <Route path="stake">
+            <Route index element={<Stake />}></Route>
           </Route>
         </Route>
       </Routes>

@@ -1,4 +1,4 @@
-import { connect, Contract, keyStores, WalletConnection } from "near-api-js";
+import { connect, Contract, keyStores, WalletConnection, nearAPI } from "near-api-js";
 import { async } from "regenerator-runtime";
 import getConfig from "./config";
 
@@ -36,12 +36,27 @@ export async function initContract() {
         "historyNo",
         "getBalance",
         "getStake",
+        "getTime",
+        "getStakers",
+        "get_num",
+        "checkReward",
+        "getReward",
       ],
       // Change methods can modify the state. But you don't receive the returned value when called.
-      changeMethods: ["setGreeting", "addProposal", "vote", "transferCall", "stake","balanceOf"],
+      changeMethods: ["setGreeting", "addProposal", "vote", "transferCall", "stake","balanceOf", "rewardFeeCalculation", "transferFromStakingPool", "transferFromRewardPool", "unstake", "resetStake"],
+      
     }
   );
+  window.contractPotato= await new Contract (
+    window.walletConnection.account(),
+    "potato_token.testnet",
+  {
+    viewMethods:["ft_metadata"],
+    changeMethods:[],
+  }
+  )
 }
+
 
 export function logout() {
   window.walletConnection.signOut();
@@ -56,3 +71,6 @@ export function login() {
   // the private key in localStorage.
   window.walletConnection.requestSignIn(nearConfig.contractName);
 }
+
+
+
