@@ -18,7 +18,7 @@ const Stake = () => {
 
   const potato = new nearAPI.Contract(
     window.walletConnection.account(), // the account object that is connecting
-    "potato_token.testnet",
+    "lights.testnet",
     {
       // name of contract you're connecting to
       viewMethods: ["ft_metadata", "ft_balance_of"], // view methods do not change state but usually return a value
@@ -28,11 +28,12 @@ const Stake = () => {
   );
 
   async function getMetadata(Amount) {
+    
     await potato.ft_transfer(
       {
         receiver_id: "lightency_staking_pool.testnet", // argument name and value - pass empty object if no args required
         amount: Amount,
-        memo: "test",
+        memo: "transfer to staking pool",
       },
       "300000000000000", // attached GAS (optional)
       "1" // attached deposit in yoctoNEAR (optional)
@@ -59,10 +60,10 @@ const Stake = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if(amount<=balance){
-    contract.stake({ amount: amount });}
-    else{
-      alert("Not enough balance!!!!")
+    if (amount <= balance) {
+      contract.stake({ amount: amount });
+    } else {
+      alert("Not enough balance!!!!");
     }
 
     setAmount("");
@@ -70,11 +71,10 @@ const Stake = () => {
 
   const handleDeposit = (event) => {
     event.preventDefault();
-    if(deposit<=balance){
-    getMetadata(deposit);
-    }
-    else{
-      alert("Not enough balance!!!")
+    if (deposit <= balance) {
+      getMetadata(deposit);
+    } else {
+      alert("Not enough balance!!!");
     }
 
     setDeposit("");
@@ -82,11 +82,10 @@ const Stake = () => {
 
   const handleUnstake = async (event) => {
     event.preventDefault();
-    if(unstake<=stake){
-    contract.unstake({ amount: unstake });
-    }
-    else{
-      alert("Not enough staked tokens!!!!")
+    if (unstake <= stake) {
+      contract.unstake({ amount: unstake });
+    } else {
+      alert("Not enough staked tokens!!!!");
     }
 
     setUnstake("");

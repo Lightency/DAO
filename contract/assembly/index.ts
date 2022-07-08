@@ -220,7 +220,7 @@ export function balanceOf(accountId: string): void {
   // Invoke a method on another contract
   // This will send an ActionReceipt to the shard where the contract lives.
   ContractPromise.create<FTBalanceOf>(
-    "potato_token.testnet", // contract account id
+    "lights.testnet", // contract account id
     "ft_balance_of", // // contract method name
     {
       account_id: accountId,
@@ -274,7 +274,7 @@ export function transferCall(
   // Invoke a method on another contract
   // This will send an ActionReceipt to the shard where the contract lives.
   ContractPromise.create<FTtransfer>(
-    "potato_token.testnet", // contract account id
+    "lights.testnet", // contract account id
     "ft_transfer", // // contract method name
     {
       receiver_id: receiverId,
