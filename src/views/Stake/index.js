@@ -7,14 +7,17 @@ import Button from "@mui/material/Button";
 import * as nearAPI from "near-api-js";
 import { async } from "regenerator-runtime";
 import Grid from "@material-ui/core/Grid";
+import Axios from "axios";
 
 const Stake = () => {
   const [amount, setAmount] = useState("");
   const [stake, setStake] = useState();
   const [balance, setBalance] = useState();
-  const [deposit, setDeposit] = useState("");
+  const [deposited, setDeposit] = useState("");
   const [reward, setReward] = useState("");
   const [unstake, setUnstake] = useState("");
+  const [dbDeposit, setDbdeposit] = useState("");
+  const [user, setUser] = useState("");
 
   const potato = new nearAPI.Contract(
     window.walletConnection.account(), // the account object that is connecting
@@ -46,10 +49,19 @@ const Stake = () => {
   });
 
   React.useEffect(() => {
-    potato.ft_balance_of({ account_id: window.accountId }).then((balance) => {
-      setBalance(balance);
+    Axios.get(`http://localhost:3000/api/getFromId/${window.accountId}`, {
+      userAddress: window.accountId,
+    }).then((data) => {
+      setDbdeposit(data.data[0].deposit);
     });
-  });
+  }, []);
+
+  React.useEffect(() => {
+    Axios.get(`http://localhost:3000/api/get/${window.accountId}`, {userAddress:window.accountId}).then((data) => {
+      setUser(data.data.length);
+      
+    });
+  }, []);
 
   React.useEffect(() => {
     contract.checkReward({ accountId: window.accountId }).then((reward) => {
@@ -57,12 +69,24 @@ const Stake = () => {
     });
   });
 
-  const handleSubmit = async (event) => {
+  React.useEffect(() => {
+    potato.ft_balance_of({ account_id: window.accountId }).then((balance) => {
+      setBalance(balance);
+    });
+  });
+
+  const handleStake = async (event) => {
     event.preventDefault();
-    if(amount<=balance){
-    contract.stake({ amount: amount });}
-    else{
-      alert("Not enough balance!!!!")
+    if (amount <= dbDeposit) {
+      Axios.post(`http://localhost:3000/api/sub_deposit/${window.accountId}`, {
+        userAddress: window.accountId,
+        deposit: amount,
+      });
+
+      contract.stake({ amount: amount });
+      //depositMap.set(window.accountId, depositMap.get(window.accountId)-amount)
+    } else {
+      alert("Not enough deposited tokens!!!!");
     }
 
     setAmount("");
@@ -70,11 +94,30 @@ const Stake = () => {
 
   const handleDeposit = (event) => {
     event.preventDefault();
-    if(deposit<=balance){
-    getMetadata(deposit);
-    }
-    else{
-      alert("Not enough balance!!!")
+    if (deposited <= balance) {
+      if(user==0){
+      Axios.post(`http://localhost:3000/api/create`, {
+        userAddress: window.accountId,
+        deposit: deposited,
+      });}
+      else{
+        Axios.post(`http://localhost:3000/api/add_deposit/${window.accountId}`, {
+        userAddress: window.accountId,
+        deposit: deposited,
+      });
+
+      }
+      /*
+      if(depositMap.has(window.accountId)){
+        depositMap.set(window.accountId, depositMap.get(window.accountId)+deposit)
+      }
+      else{
+        depositMap.set(window.accountId, deposit)
+      }  
+      */
+      getMetadata(deposited);
+    } else {
+      alert("Not enough balance!!!");
     }
 
     setDeposit("");
@@ -82,11 +125,10 @@ const Stake = () => {
 
   const handleUnstake = async (event) => {
     event.preventDefault();
-    if(unstake<=stake){
-    contract.unstake({ amount: unstake });
-    }
-    else{
-      alert("Not enough staked tokens!!!!")
+    if (unstake <= stake) {
+      contract.unstake({ amount: unstake });
+    } else {
+      alert("Not enough staked tokens!!!!");
     }
 
     setUnstake("");
@@ -96,6 +138,11 @@ const Stake = () => {
     await contract.rewardFeeCalculation();
   }
 
+
+  //console.log(dbDeposit);
+  //console.log(depositMap.has(window.accountId))
+
+  
   return (
     <div>
       <h1 style={{ color: "black", fontFamily: "Eloquia Display Extra Bold" }}>
@@ -205,7 +252,7 @@ const Stake = () => {
                   fontFamily: "Eloquia Display Extra Bold",
                 }}
               >
-                Unavailable
+                {dbDeposit}
               </Typography>
             </Grid>
           </Grid>
@@ -299,7 +346,7 @@ const Stake = () => {
           name="Deposit"
           type="text"
           onChange={(event) => setDeposit(event.target.value)}
-          value={deposit}
+          value={deposited}
           placeholder="0"
           style={{ backgroundColor: "#dbdbdb", color: "black" }}
         />
@@ -311,7 +358,7 @@ const Stake = () => {
         </button>
       </form>
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleStake}
         style={{
           width: 1000,
           textAlign: "center",
