@@ -77,7 +77,7 @@ const Stake = () => {
 
   const handleStake = async (event) => {
     event.preventDefault();
-    if (amount <= dbDeposit) {
+    if (parseInt(amount) <= parseInt(dbDeposit)) {
       Axios.post(`http://localhost:3000/api/sub_deposit/${window.accountId}`, {
         userAddress: window.accountId,
         deposit: amount,
@@ -94,7 +94,7 @@ const Stake = () => {
 
   const handleDeposit = (event) => {
     event.preventDefault();
-    if (deposited <= balance) {
+    if (parseInt(deposited) <= parseInt(balance)) {
       if(user==0){
       Axios.post(`http://localhost:3000/api/create`, {
         userAddress: window.accountId,
@@ -125,7 +125,7 @@ const Stake = () => {
 
   const handleUnstake = async (event) => {
     event.preventDefault();
-    if (unstake <= stake) {
+    if (parseInt(unstake) <= parseInt(stake)) {
       contract.unstake({ amount: unstake });
     } else {
       alert("Not enough staked tokens!!!!");
@@ -238,7 +238,7 @@ const Stake = () => {
                   fontFamily: "Eloquia Display Extra Bold",
                 }}
               >
-                Unstaked
+                Deposited
               </Typography>
             </Grid>
             <Grid item>

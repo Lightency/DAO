@@ -20,6 +20,7 @@ import {
   u128,
   PersistentMap,
   env,
+  u256
 } from "near-sdk-as";
 import { Context, ContractPromise } from "near-sdk-core";
 import { Proposal, proposals } from "./model";
@@ -352,6 +353,7 @@ class fraction {
   denominator: u128;
 }
 
+
 export function rewardFeeCalculation(): void {
   const percentage: fraction = {
     numerator: u128.from<string>("30"),
@@ -361,7 +363,7 @@ export function rewardFeeCalculation(): void {
   const now: u64 = env.block_timestamp();
   const last_update: u64 = time.getSome(accountId);
 
-  const UPDATE_INTERVAL: u64 = 864000000000000  // 1 day
+  const UPDATE_INTERVAL: u64 = 86400000000000  // 1 day
   //const UPDATE_INTERVAL: u64 = 120000000000;
 
   assert(now >= last_update + UPDATE_INTERVAL, "Not enough time has passed");
@@ -370,22 +372,24 @@ export function rewardFeeCalculation(): void {
     const days: u64 = (now - last_update) / UPDATE_INTERVAL;
     let initial = staking.getSome(accountId);
     let reward = u128.Zero;
+    let finalReward=u128.Zero
     for (let i: u64 = 1; i <= days; ++i) {
       initial = u128.add(initial, reward);
       reward = u128.div(
         u128.mul(initial, percentage.numerator),
         percentage.denominator
       );
+      finalReward=u128.add(finalReward,reward)
     }
     transferFromRewardPool(
       "lightency_staking_pool.testnet",
-      reward.toString(),
+      finalReward.toString(),
       "",
       u128.One
     );
-    staking.set(accountId, u128.add(staking.getSome(accountId), reward));
+    staking.set(accountId, u128.add(staking.getSome(accountId), finalReward));
     time.set(accountId, env.block_timestamp());
-    rewards.set(accountId, reward);
+    rewards.set(accountId, finalReward);
 
     //logging.log(reward.toString())
   }
@@ -490,21 +494,23 @@ export function checkReward(accountId:string): u128 {
 
   //const UPDATE_INTERVAL: u64 = 86400000000000 // 1 day
   //const UPDATE_INTERVAL: u64 = 120000000000; // 60 seconds
-  const UPDATE_INTERVAL: u64 = 864000000000000  // 1 day
+  const UPDATE_INTERVAL: u64 = 86400000000000  // 1 day
   
   const days: u64 = (now - last_update) / UPDATE_INTERVAL;
   const percentage: fraction = {
-    numerator: u128.from<string>("30"),
-    denominator: u128.from<string>("100"),
+    numerator: u128.from<string>("314"),
+    denominator: u128.from<string>("1000"),
   };
   let initial = staking.getSome(accountId);
   let reward = u128.Zero;
+  let finalReward=u128.Zero
   for (let i: u64 = 1; i <= days; ++i) {
     initial = u128.add(initial, reward);
     reward = u128.div(
       u128.mul(initial, percentage.numerator),
       percentage.denominator
     );
+    finalReward=u128.add(finalReward,reward)
   }
-  return reward;
+  return finalReward;
 }
