@@ -18,6 +18,7 @@ const Stake = () => {
   const [unstake, setUnstake] = useState("");
   const [dbDeposit, setDbdeposit] = useState("");
   const [user, setUser] = useState("");
+  const [disable, setDisabled]= useState(false);
 
   const potato = new nearAPI.Contract(
     window.walletConnection.account(), // the account object that is connecting
@@ -77,6 +78,7 @@ const Stake = () => {
 
   const handleStake = async (event) => {
     event.preventDefault();
+    setDisabled(true);
     if (parseInt(amount) <= parseInt(dbDeposit)) {
       Axios.post(`http://localhost:3000/api/sub_deposit/${window.accountId}`, {
         userAddress: window.accountId,
@@ -94,6 +96,9 @@ const Stake = () => {
 
   const handleDeposit = (event) => {
     event.preventDefault();
+    setDisabled(true);
+
+    
     if (parseInt(deposited) <= parseInt(balance)) {
       if(user==0){
       Axios.post(`http://localhost:3000/api/create`, {
@@ -107,6 +112,7 @@ const Stake = () => {
       });
 
       }
+
       /*
       if(depositMap.has(window.accountId)){
         depositMap.set(window.accountId, depositMap.get(window.accountId)+deposit)
@@ -115,16 +121,19 @@ const Stake = () => {
         depositMap.set(window.accountId, deposit)
       }  
       */
+     
       getMetadata(deposited);
     } else {
       alert("Not enough balance!!!");
     }
 
     setDeposit("");
+    //setDisabled(false);
   };
 
   const handleUnstake = async (event) => {
     event.preventDefault();
+    setDisabled(true);
     if (parseInt(unstake) <= parseInt(stake)) {
       contract.unstake({ amount: unstake });
     } else {
@@ -353,6 +362,7 @@ const Stake = () => {
         <button
           type="submit"
           style={{ width: "130px", fontFamily: "Eloquia Display Extra Bold" }}
+          disabled={disable}
         >
           Deposit
         </button>
@@ -380,7 +390,8 @@ const Stake = () => {
         />
         <button
           type="submit"
-          style={{ width: "130px", fontFamily: "Eloquia Display Extra Bold" }}
+          style={{ width: "130px", fontFamily: "Eloquia Display Extra Bold" }} 
+          disabled={disable}
         >
           Stake
         </button>
@@ -409,6 +420,7 @@ const Stake = () => {
         <button
           type="submit"
           style={{ width: "130px", fontFamily: "Eloquia Display Extra Bold" }}
+          disabled={disable}
         >
           Unstake
         </button>
