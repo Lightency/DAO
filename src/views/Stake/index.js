@@ -78,8 +78,9 @@ const Stake = () => {
 
   const handleStake = async (event) => {
     event.preventDefault();
-    setDisabled(true);
+    
     if (parseInt(amount) <= parseInt(dbDeposit)) {
+      setDisabled(true);
       Axios.post(`http://localhost:3000/api/sub_deposit/${window.accountId}`, {
         userAddress: window.accountId,
         deposit: amount,
@@ -96,10 +97,11 @@ const Stake = () => {
 
   const handleDeposit = (event) => {
     event.preventDefault();
-    setDisabled(true);
+    
 
     
     if (parseInt(deposited) <= parseInt(balance)) {
+      setDisabled(true);
       if(user==0){
       Axios.post(`http://localhost:3000/api/create`, {
         userAddress: window.accountId,
@@ -133,8 +135,9 @@ const Stake = () => {
 
   const handleUnstake = async (event) => {
     event.preventDefault();
-    setDisabled(true);
+    
     if (parseInt(unstake) <= parseInt(stake)) {
+      setDisabled(true);
       contract.unstake({ amount: unstake });
     } else {
       alert("Not enough staked tokens!!!!");
